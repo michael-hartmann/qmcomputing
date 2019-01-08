@@ -1,0 +1,137 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{fancyhdr}
+\usepackage{fancyheadings}
+\usepackage[ngerman,german]{babel}
+\usepackage{german}
+\usepackage[utf8]{inputenc}
+\usepackage[active]{srcltx}
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{listings}
+\usepackage{struktex}
+\usepackage{hyperref}
+
+\usepackage{braket}
+
+\renewcommand{\vector}[2]{{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}}
+
+\newcommand{\Fach}{Basics of Quantum Information and Computing}
+\newcommand{\Name}{Michael Hartmann}
+\newcommand{\Lehrstuhl}{Theoretische Physik I}
+\newcommand{\Uebungsblatt}{1} %  <-- UPDATE ME
+\newcommand{\Date}{02.11.2016} %  <-- UPDATE ME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\Tr}{Tr}
+
+\setlength{\parindent}{0em}
+\topmargin -1.0cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+\setlength{\textheight}{9.2in}
+\setlength{\textwidth}{6.0in}
+
+%%%%%%%%%%%%%%%
+%% Problem-COMMAND
+\newcommand{\Problem}[1]{
+  {
+  \vspace*{0.5cm}
+  \textsf{\textbf{Problem #1}}
+  \vspace*{0.2cm}
+  
+  }
+}
+%%%%%%%%%%%%%%
+\hypersetup{
+    pdftitle={\Fach{}: Exercise \Uebungsblatt{}},
+    pdfauthor={\Name},
+    pdfborder={0 0 0}
+}
+
+\lstset{ %
+language=java,
+basicstyle=\footnotesize\tt,
+showtabs=false,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+extendedchars=true,
+showstringspaces=false,
+flexiblecolumns=true,
+}
+
+\title{Exercise \Uebungsblatt{}}
+\author{\Name{}}
+
+\begin{document}
+\thispagestyle{fancy}
+\lhead{\sf \Fach{} \\ \tiny{\Name, \Lehrstuhl}}
+\rhead{\sf \Date{}}
+\vspace*{0.2cm}
+\begin{center}
+\LARGE \sf \textbf{Exercise \Uebungsblatt{} -- Entropy, Compression}
+\end{center}
+\vspace*{0.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Insert your solutions here %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\Problem{1}
+We are trying to quantify how much information is provided by an event $E$. We
+make following assumptions about the information function $I(E)$:
+\begin{enumerate}
+\item $I(E)$ is a function only of the probability of the event $E$.
+\item Information is a non-negative quantity.
+\item Information due to independent events is additive.
+\end{enumerate}
+
+\begin{enumerate}[a)]
+\item Find $I(E)$.
+\item Suppose we have a distribution $X$ where each event $i$ can happen with
+probability $p_i$. Find the average amount of information $H(X)$ that we
+receive with every event.
+\end{enumerate}
+
+
+\Problem{2}
+
+Consider the text: \textsf{AABC}
+
+Use arithmetic encoding to encode the text. What is the length and the Shannon
+entropy (in bits) of the encoded text?
+
+\Problem{3}
+
+Consider the text:
+\textsf{ABADDCCAABABEDAECBDDDAAAABAAAABBCAECEEC}
+
+\begin{enumerate}[a)]
+\item Calculate the Shannon entropy (in bits) of the original text.
+\item Calculate the length and the Shannon entropy (in bits) of the text using the block encoding
+\begin{equation}
+\nonumber
+\textsf{A} \mapsto 000, \qquad
+\textsf{B} \mapsto 001, \qquad
+\textsf{C} \mapsto 010, \qquad
+\textsf{D} \mapsto 011, \qquad
+\textsf{E} \mapsto 100.
+\end{equation}
+Does the length and the entropy depend on the encoding?
+\item Calculate the length and the Shannon entropy (in bits) of the text after Shannon-Fano compression.
+\item Calculate the length and the Shannon entropy (in bits) of the text after Huffman compression.
+\end{enumerate}
+
+\Problem{4}
+
+Show that there is no compression algorithm that can compress any text to a text that is one bit shorter.
+
+\end{document}

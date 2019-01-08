@@ -1,0 +1,160 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{fancyhdr}
+\usepackage{fancyheadings}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[active]{srcltx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{hyperref}
+
+\usepackage{braket}
+
+\renewcommand{\vector}[2]{{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% EDIT THIS PART %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Fach}{Basics of Quantum Information and Computing}
+\newcommand{\Name}{Michael Hartmann}
+\newcommand{\Lehrstuhl}{Theoretische Physik I}
+\newcommand{\Uebungsblatt}{2}  %  <-- UPDATE ME
+\newcommand{\Date}{23.11.2016} %  <-- UPDATE ME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\Tr}{tr}
+
+\setlength{\parindent}{0em}
+\topmargin -1.0cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+\setlength{\textheight}{9.2in}
+\setlength{\textwidth}{6.0in}
+
+%%%%%%%%%%%%%%%
+%% Problem-COMMAND
+\newcommand{\Problem}[1]{
+  {
+  \vspace*{0.5cm}
+  \textsf{\textbf{Problem #1}}
+  \vspace*{0.2cm}
+  
+  }
+}
+%%%%%%%%%%%%%%
+\hypersetup{
+    pdftitle={\Fach{}: Exercise \Uebungsblatt{}},
+    pdfauthor={\Name},
+    pdfborder={0 0 0}
+}
+
+\title{Exercise \Uebungsblatt{}}
+\author{\Name{}}
+
+\begin{document}
+\thispagestyle{fancy}
+\lhead{\sf \Fach{} \\ \tiny{\Name, \Lehrstuhl}}
+\rhead{\sf \Date{}}
+\vspace*{0.2cm}
+\begin{center}
+\LARGE \sf \textbf{Exercise \Uebungsblatt{} -- Qubits}
+\end{center}
+\vspace*{0.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Insert your solutions here %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\Problem{1}
+We denote two orthonormal states of a single qubit as $\{\ket{0}, \ket{1}\}$
+where
+\begin{equation}
+\braket{0|0} = \braket{1|1} =1, \quad\quad \braket{0|1}=\braket{1|0}=0.
+\end{equation}
+Any state $\ket{\Psi}$ of this system can be written as a superposition
+\begin{equation}
+\ket{\Psi}=\alpha\ket{0} + \beta\ket{1}, \quad |\alpha|^2+|\beta|^2=1, \quad\quad \alpha,\beta \in \mathbb{C}.
+\end{equation}
+
+\begin{enumerate}[a)]
+    \item Find a parameter representation for $\ket{\Psi}$ if the underlying
+    field is (i) the set of real numbers and (ii) the set of complex numbers.
+
+    \item Consider the normalized states
+    \begin{equation}
+    \ket{\Psi_1}=\vector{\cos\theta_1}{\sin\theta_1}, \quad\quad \ket{\Psi_2}=\vector{\cos\theta_2}{\sin\theta_2}.
+    \end{equation}
+    Find the condition on $\theta_1$ and $\theta_2$ such that $\ket{\Psi_1}+\ket{\Psi_2}$ is normalized.
+
+    \item Let
+    \begin{equation}
+    A = \ket{0}\bra{0} + \ket{1}\bra{1}.
+    \end{equation}
+    Calculate $A$ for
+    \begin{enumerate}[(i)]
+        \item $\ket{0} = \vector{\cos\theta}{\sin\theta} \quad\quad \ket{1} = \vector{\sin\theta}{-\cos\theta}$
+        \item $\ket{0} = \vector{1}{0}, \quad\quad \ket{1} = \vector{0}{1}$
+        \item $\ket{0} = \frac{1}{\sqrt 2}\vector{1}{1}, \quad\quad \ket{1} = \frac{1}{\sqrt 2}\vector{1}{-1}$
+    \end{enumerate}
+\end{enumerate}
+
+
+\Problem{2}
+The {\it Walsh-Hadamard} transform is defined as
+\begin{equation}
+\ket{0} \rightarrow \frac{1}{\sqrt 2}\left(\ket{0}+\ket{1}\right), \quad\quad \ket{1} \rightarrow \frac{1}{\sqrt 2}\left(\ket{0}-\ket{1}\right)
+\end{equation}
+\begin{enumerate}[a)]
+    \item Find the unitary operator $U_\text{H}$ which implements the {\it Walsh-Hadamard} transform with respect to the basis $\{ \ket{0}, \ket{1} \}$.
+    \item Find the inverse of the operator $U_\text{H}$.
+    \item Find the matrix representation of $U_\text{H}$ for the basis
+    \begin{equation}
+    \ket{0} = \vector{\cos\theta}{\sin\theta}, \quad\quad \ket{1} = \vector{\sin\theta}{-\cos\theta}.
+    \end{equation}
+\end{enumerate}
+
+\Problem{3}
+Let $\ket{\Psi} = \vector{e^{i\phi}\cos\theta}{\sin\theta}$ where $\phi,\theta \in \mathbb{R}$.
+\begin{enumerate}[a)]
+    \item Find $\rho = \ket{\Psi}\bra{\Psi}$.
+    \item Find $\Tr{\rho}$.
+    \item Find $\Tr \rho^2$.
+\end{enumerate}
+
+\Problem{4}
+Given the Hamilton operator
+\begin{equation}
+H = \hbar\omega\sigma_x, \quad\quad \sigma_x = \left(\begin{array}{cc} 0 & 1 \\ 1 & 0 \end{array}\right).
+\end{equation}
+\begin{enumerate}[a)]
+    \item Find the eigenenergies and the eigenstates of the Hamiltonian.
+    \item Find the solution $\ket{\Psi(t)}$ for the time-dependent Schrödinger equation
+    \begin{equation}
+    i\hbar\partial_t \ket{\Psi} = H\ket{\Psi}
+    \end{equation}
+    with the initial conditions $\ket{\Psi(t=0)} = \vector{1}{0}$.
+    \item Find and discuss the probability $\left|\braket{\Psi(t=0)|\Psi(t)}\right|^2$.
+\end{enumerate}
+
+\Problem{5}
+A system of $n$-qubits represents a finite-dimensional Hilbert space over the
+complex numbers of dimension $2^n$. A state $\ket{\Psi}$ is a superposition
+of the basic states
+\begin{equation}
+\ket{\Psi} = \sum_{j_1,j_2,\dots,j_n=0}^1 c_{j_1,j_2,\dots,j_n} \ket{j_1} \otimes \ket{j_2} \otimes \dots \otimes \ket{j_n}
+           = \sum_{j_1,j_2,\dots,j_n=0}^1 c_{j_1,j_2,\dots,j_n} \ket{j_1 j_2 \dots j_n}.
+\end{equation}
+Can the state
+\begin{equation}
+\ket{\Psi} = \frac{1}{2} \left(\ket{00} + \ket{01} + \ket{10} + \ket{11}\right)
+\end{equation}
+be written as a product state, i.e. in the form of $\ket{\Psi} = \ket{\Phi_1} \otimes \ket{\Phi_2}$?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+

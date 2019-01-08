@@ -1,0 +1,187 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{fancyhdr}
+\usepackage{fancyheadings}
+\usepackage[american]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[active]{srcltx}
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{listings}
+\usepackage{struktex}
+\usepackage{hyperref}
+
+\usepackage{braket}
+
+\renewcommand{\vector}[2]{{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% EDIT THIS PART %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Fach}{Basics of Quantum Information and Computing}
+\newcommand{\Name}{Michael Hartmann}
+\newcommand{\Lehrstuhl}{Theoretische Physik I, Universität Augsburg}
+\newcommand{\Uebungsblatt}{10} %  <-- UPDATE ME
+\newcommand{\Date}{10.02.2016} %  <-- UPDATE ME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\vect}{vec}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\topmargin -1.0cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+\setlength{\textheight}{9.2in}
+\setlength{\textwidth}{6.0in}
+
+%%%%%%%%%%%%%%%
+%% Problem-COMMAND
+\newcommand{\Problem}[1]{
+  {
+  \vspace*{0.5cm}
+  \textsf{\textbf{Problem #1}}
+  \vspace*{0.2cm}
+  
+  }
+}
+%%%%%%%%%%%%%%
+\hypersetup{
+    pdftitle={\Fach{}: Exercise \Uebungsblatt{}},
+    pdfauthor={\Name},
+    pdfborder={0 0 0}
+}
+
+\lstset{ %
+language=java,
+basicstyle=\footnotesize\tt,
+showtabs=false,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+extendedchars=true,
+showstringspaces=false,
+flexiblecolumns=true,
+}
+
+\title{Exercise \Uebungsblatt{}}
+\author{\Name{}}
+
+\begin{document}
+\thispagestyle{fancy}
+\lhead{\sf \Fach{} \\ \tiny{\Name, \Lehrstuhl}}
+\rhead{\sf \Date{}}
+\vspace*{0.2cm}
+\begin{center}
+\LARGE \sf \textbf{Exercise \Uebungsblatt{}}
+\end{center}
+\vspace*{0.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Insert your solutions here %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\Problem{1 -- Von-Neumann equation}
+
+Show that the derivation of the density operator $\varrho$ in the Schrödinger picture is given by the
+Von-Neumann equation
+\begin{equation}
+\frac{\partial\varrho}{\partial t} = -\frac{i}{\hbar} \big[H,\varrho\big] \,.
+\end{equation}
+
+
+\Problem{2 -- Lindblad equation}
+A master equation in Lindblad form
+\begin{equation}
+\frac{\partial\varrho}{\partial t} = -\frac{i}{\hbar} \big[H,\varrho\big] + \sum_{j=1}^{N^2-1} \gamma_j \left( A_j\varrho A_j^\dagger - \frac{1}{2}\varrho A_j^\dagger A_j - \frac{1}{2}A_j^\dagger A_j \varrho \right), \qquad \gamma_j \ge 0
+\end{equation}
+is the most general type of a Markovian and time-homogeneous master equation
+describing non-unitary evolution of the density matrix $\varrho$ that is
+trace-preserving and completely positive for any initial condition. The
+operators $A_j$ are called jump operators and are operators of the Hilbert
+space.
+
+We consider the Hamiltonian
+\begin{equation}
+H = \frac{\hbar\omega}{2} \sigma_x
+\end{equation}
+with jump operators
+\begin{equation}
+\sigma_+ = \frac{1}{2} \left( \sigma_x + i\sigma_y \right), \qquad
+\sigma_- = \frac{1}{2} \left( \sigma_x - i\sigma_y \right)
+\end{equation}
+and associated rates $\gamma_+$ and $\gamma_-$.
+
+\begin{enumerate}[i)]
+\item Calculate $\sigma_+\sigma_-$ and $\sigma_-\sigma_+$, the commutator $[\sigma_+,\sigma_-]$, and the anti-commutator $\{\sigma_+,\sigma_-\}$.
+\item The Kronecker product can be used to get a convenient representation for some matrix equations,
+\begin{equation}
+A\varrho B = C \quad \Leftrightarrow \quad (B^T \otimes A) \vect(\varrho) = \vect(A\varrho B) = \vect(\varrho) \equiv \vec \varrho .
+\end{equation}
+Here, $\vect(\varrho)$ denotes the vectorization of the matrix $\varrho$ formed by stacking the columns of $\varrho$ into a single column vector,
+\begin{equation}
+\vect\left(\begin{array}{cc} a & b \\ b^* & c \end{array}\right) = \left(\begin{array}{l} a \\ b^* \\ b \\ c \end{array}\right).
+\end{equation}
+Calculate the $4\times4$ matrix $\mathcal{L}$ such that
+\begin{equation}
+\frac{\mathrm{d}}{\mathrm{d}t} \vec\varrho = \mathcal{L}\vec \varrho.
+\end{equation}
+\item Show that the Lindblad equation for this system is trace preserving.
+\item Calculate the steady state of the system for the rates given by $\gamma_+
+= \gamma(\nu-1)$ and $\gamma_- = \gamma\nu$.  What is the interpretation of
+$\gamma$ and $\nu$?
+\end{enumerate}
+
+
+\Problem{3 -- Phase-damping channel}
+
+Define a quantum operation $\mathcal{E}$ on a qubit state as
+\begin{equation}
+\mathcal{E}(\varrho) = E_0 \varrho E_0^\dagger + E_1 \varrho E_1^\dagger
+\end{equation}
+with
+\begin{equation}
+E_0 = \left(\begin{array}{cc}
+1 & 0 \\
+0 & \sqrt{1-p}
+\end{array}\right), \qquad
+E_1 = \left(\begin{array}{cc}
+0 & 0 \\
+0 & \sqrt{p}
+\end{array}\right),
+\end{equation}
+and $0 < p < 1$.
+
+\begin{enumerate}[i)]
+\item Prove that $\mathcal{E}$ maps a density matrix to a density matrix.
+\item Show that for any
+$\varrho = \left(\begin{array}{cc} a   & b \\ b^* & c \end{array}\right)$
+\begin{equation}
+\lim_{N\to\infty} \mathcal{E}^N (\varrho) = \left(\begin{array}{cc}
+a & 0 \\
+0 & c
+\end{array}\right).
+\end{equation}
+\end{enumerate}
+
+
+\vfill
+\hrulefill \\
+Pauli matrices:
+\begin{equation}
+\sigma_0 = \mathbbm{1}, \qquad
+\sigma_x = \left(\begin{array}{cc} 0 & 1 \\ 1 & 0 \end{array}\right), \qquad
+\sigma_y = \left(\begin{array}{cc} 0 & -i \\ i & 0 \end{array}\right), \qquad
+\sigma_z = \left(\begin{array}{cc} 1 & 0 \\ 0 & -1 \end{array}\right)
+\end{equation}
+
+\end{document}

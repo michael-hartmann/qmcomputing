@@ -1,0 +1,153 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{fancyhdr}
+\usepackage{fancyheadings}
+\usepackage[american]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[active]{srcltx}
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{listings}
+\usepackage{struktex}
+\usepackage{hyperref}
+
+\usepackage{braket}
+
+\renewcommand{\vector}[2]{{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% EDIT THIS PART %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Fach}{Basics of Quantum Information and Computing}
+\newcommand{\Name}{Michael Hartmann}
+\newcommand{\Lehrstuhl}{Theoretische Physik I, Universität Augsburg}
+\newcommand{\Uebungsblatt}{5} %  <-- UPDATE ME
+\newcommand{\Date}{5.12.2016} %  <-- UPDATE ME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\Tr}{Tr}
+
+\setlength{\parindent}{0em}
+\topmargin -1.0cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+\setlength{\textheight}{9.2in}
+\setlength{\textwidth}{6.0in}
+
+%%%%%%%%%%%%%%%
+%% Problem-COMMAND
+\newcommand{\Problem}[1]{
+  {
+  \vspace*{0.5cm}
+  \textsf{\textbf{Problem #1}}
+  \vspace*{0.2cm}
+  
+  }
+}
+%%%%%%%%%%%%%%
+\hypersetup{
+    pdftitle={\Fach{}: Exercise \Uebungsblatt{}},
+    pdfauthor={\Name},
+    pdfborder={0 0 0}
+}
+
+\lstset{ %
+language=java,
+basicstyle=\footnotesize\tt,
+showtabs=false,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+extendedchars=true,
+showstringspaces=false,
+flexiblecolumns=true,
+}
+
+\title{Exercise \Uebungsblatt{}}
+\author{\Name{}}
+
+\begin{document}
+\thispagestyle{fancy}
+\lhead{\sf \Fach{} \\ \tiny{\Name, \Lehrstuhl}}
+\rhead{\sf \Date{}}
+\vspace*{0.2cm}
+\begin{center}
+\LARGE \sf \textbf{Exercise \Uebungsblatt{} -- Density Operator}
+\end{center}
+\vspace*{0.2cm}
+
+The \textit{density operator} $\varrho$ is defined as
+\begin{equation}
+\varrho \equiv \sum_{j} p_j \ket{\Psi_j}\bra{\Psi_j}, \qquad \sum_j p_j = 1 \,.
+\end{equation}
+The system may be found in the state $\ket{\Psi_j}$ with probability $p_j$.
+If the state of the system is known exactly, i.e., $\varrho=\ket{\Psi}\bra{\Psi}$, the
+state is called \textit{pure}, otherwise \textit{mixed}.
+
+Suppose we have a system $\varrho^{AB}$ which consists of two subsystems $A$
+and $B$. The \textit{reduced density operator} is defined by
+\begin{equation}
+\varrho^{A} \equiv \Tr_B\left(\varrho^{AB}\right),
+\end{equation}
+where
+\begin{equation}
+\Tr_B\left(\ket{a_1}\bra{a_2} \otimes \ket{b_1}\bra{b_2}\right) \equiv \ket{a_1}\bra{a_2} \Tr\left(\ket{b_1}\bra{b_2}\right),
+\end{equation}
+and $\ket{a_1},\ket{a_2}$ are states of $A$, and $\ket{b_1},\ket{b_2}$ are states of $B$.
+
+
+\Problem{1}
+Proof that
+\begin{enumerate}[a)]
+\item $\Tr\varrho = 1$,
+\item $\varrho$ is Hermitian,
+\item $\varrho$ is semi-positive,
+\item $\Tr\varrho^2 \le 1$ and $\Tr\varrho^2=1$ if and only if $\varrho$ is a pure state.
+\end{enumerate}
+
+
+\Problem{2}
+\begin{enumerate}[a)]
+\item Show that the density operator $\varrho$ fulfills the \textit{von Neumann} equation
+\begin{equation}
+\dot \varrho = -\frac{i}{\hbar} \left[H,\varrho\right] \,.
+\end{equation}
+
+\item Show that an arbitrary density matrix for a mixed state qubit may be written as
+\begin{equation}
+\varrho = \frac{1}{2} \left(\mathbbm{1} + \vec r \cdot \vec \varrho \right) \,.
+\end{equation}
+For what $\vec r$ is $\varrho$ pure?
+\end{enumerate}
+
+\Problem{3}
+Consider the state
+\begin{equation}
+\varrho^{12} = \left(\frac{\ket{00}+\ket{11}}{\sqrt{2}}\right) \left(\frac{\bra{00}+\bra{11}}{\sqrt{2}}\right)
+\end{equation}
+\begin{enumerate}[a)]
+\item Show that $\varrho^{12}$ is a pure state.
+\item Calculate $\varrho^1$ and show that $\varrho^1$ is a mixed state.
+\end{enumerate}
+
+\Problem{4}
+Suppose a composite system of $A$ and $B$ is in the state $\ket{a}\ket{b}$,
+where $\ket{a}$ is a pure state of system $A$, and $\ket{b}$ is a pure state of
+system $B$. Show that the reduced density operator of system $A$ alone is a
+pure state.
+
+\Problem{5}
+In exercise 5 the initial state was given by
+\begin{equation}
+\ket{\Psi}_\text{in} = \frac{1}{\sqrt{2}} \left( \alpha\ket{0_S 0_A 0_B} + \alpha\ket{0_S 1_A 1_B} + \beta\ket{1_S 0_A 0_B} +\beta\ket{1_S 1_A 1_B} \right) \,.
+\end{equation}
+Calculate the reduced density operator $\varrho^B$ and show that it is a mixed state.
+
+\end{document}

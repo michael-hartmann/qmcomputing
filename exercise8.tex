@@ -1,0 +1,150 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{fancyhdr}
+\usepackage{fancyheadings}
+\usepackage[american]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[active]{srcltx}
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{listings}
+\usepackage{struktex}
+\usepackage{hyperref}
+
+\usepackage{braket}
+
+\renewcommand{\vector}[2]{{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% EDIT THIS PART %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Fach}{Basics of Quantum Information and Computing}
+\newcommand{\Name}{Michael Hartmann}
+\newcommand{\Lehrstuhl}{Theoretische Physik I, Universität Augsburg}
+\newcommand{\Uebungsblatt}{8} %  <-- UPDATE ME
+\newcommand{\Date}{20.01.2016} %  <-- UPDATE ME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\Tr}{Tr}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\topmargin -1.0cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+\setlength{\textheight}{9.2in}
+\setlength{\textwidth}{6.0in}
+
+%%%%%%%%%%%%%%%
+%% Problem-COMMAND
+\newcommand{\Problem}[1]{
+  {
+  \vspace*{0.5cm}
+  \textsf{\textbf{Problem #1}}
+  \vspace*{0.2cm}
+  
+  }
+}
+%%%%%%%%%%%%%%
+\hypersetup{
+    pdftitle={\Fach{}: Exercise \Uebungsblatt{}},
+    pdfauthor={\Name},
+    pdfborder={0 0 0}
+}
+
+\lstset{ %
+language=java,
+basicstyle=\footnotesize\tt,
+showtabs=false,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+extendedchars=true,
+showstringspaces=false,
+flexiblecolumns=true,
+}
+
+\title{Exercise \Uebungsblatt{}}
+\author{\Name{}}
+
+\begin{document}
+\thispagestyle{fancy}
+\lhead{\sf \Fach{} \\ \tiny{\Name, \Lehrstuhl}}
+\rhead{\sf \Date{}}
+\vspace*{0.2cm}
+\begin{center}
+\LARGE \sf \textbf{Exercise \Uebungsblatt{}}
+\end{center}
+\vspace*{0.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Insert your solutions here %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\Problem{1 -- $Z$-$Y$ decomposition of a single qubit}
+
+The Pauli matrices are given by
+\begin{equation}
+\sigma_x = \left(
+\begin{array}{cc}
+0 & 1 \\
+1 & 0
+\end{array}
+\right), \quad
+\sigma_y = \left(
+\begin{array}{cc}
+0 & -i \\
+i & 0
+\end{array}
+\right), \quad
+\sigma_z = \left(
+\begin{array}{cc}
+1 & 0 \\
+0 & -1
+\end{array}
+\right).
+\end{equation}
+
+We will show that any unitary gate on a single qubit can be implemented using
+only $Z$ and $Y$ rotations.
+
+\begin{enumerate}[a)]
+
+\item Show that $\sigma_x^2 = \sigma_y^2 = \sigma_z^2 = \mathbbm{1}$.
+
+\item Show that, if $A$ is a matrix such that $A^2=\mathbbm{1}$, then, for any real number $x$,
+\begin{equation}
+e^{ixA} = \cos{x} \mathbbm{1} + i \sin{x} A.
+\end{equation}
+\item Use the previous step to show that
+\begin{align}
+R_y(\theta) &\equiv e^{-i\frac{\theta}{2}\sigma_y} = \left(\begin{array}{cc} \cos{\frac{\theta}{2}} & -\sin{\frac{\theta}{2}} \\ \sin{\frac{\theta}{2}} & \cos{\frac{\theta}{2}} \end{array}\right) \\
+R_z(\theta) &\equiv e^{-i\frac{\theta}{2}\sigma_z} = \left(\begin{array}{cc} e^{-i\frac{\theta}{2}} & 0 \\ 0 & e^{i\frac{\theta}{2}} \end{array}\right) 
+\end{align}
+
+\item Show that a unitary $2 \times 2$ matrix can be written as
+\begin{equation}
+U = \left(
+\begin{array}{cc}
+e^{i(\alpha-\beta-\delta)}\cos\gamma & -e^{i(\alpha-\beta+\delta)}\sin\gamma \\
+e^{i(\alpha+\beta-\delta)}\sin\gamma &  e^{i(\alpha+\beta+\delta)}\cos\gamma
+\end{array}
+\right)
+\end{equation}
+where $\alpha,\beta,\gamma,\delta$ are real numbers.
+
+\item Use the results above to show that $U$ can be implemented as
+\begin{equation}
+U = e^{i\alpha} R_z(2\beta) R_y(2\gamma) R_z(2\delta).
+\end{equation}
+\end{enumerate}
+
+
+\end{document}

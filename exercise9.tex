@@ -1,0 +1,158 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{fancyhdr}
+\usepackage{fancyheadings}
+\usepackage[american]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[active]{srcltx}
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{listings}
+\usepackage{struktex}
+\usepackage{hyperref}
+
+\usepackage{braket}
+
+\renewcommand{\vector}[2]{{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% EDIT THIS PART %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Fach}{Basics of Quantum Information and Computing}
+\newcommand{\Name}{Michael Hartmann}
+\newcommand{\Lehrstuhl}{Theoretische Physik I, Universität Augsburg}
+\newcommand{\Uebungsblatt}{9} %  <-- UPDATE ME
+\newcommand{\Date}{27.01.2017} %  <-- UPDATE ME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\Tr}{Tr}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\topmargin -1.0cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+\setlength{\textheight}{9.2in}
+\setlength{\textwidth}{6.0in}
+
+%%%%%%%%%%%%%%%
+%% Problem-COMMAND
+\newcommand{\Problem}[1]{
+  {
+  \vspace*{0.5cm}
+  \textsf{\textbf{Problem #1}}
+  \vspace*{0.2cm}
+  
+  }
+}
+%%%%%%%%%%%%%%
+\hypersetup{
+    pdftitle={\Fach{}: Exercise \Uebungsblatt{}},
+    pdfauthor={\Name},
+    pdfborder={0 0 0}
+}
+
+\lstset{ %
+language=java,
+basicstyle=\footnotesize\tt,
+showtabs=false,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+extendedchars=true,
+showstringspaces=false,
+flexiblecolumns=true,
+}
+
+\title{Exercise \Uebungsblatt{}}
+\author{\Name{}}
+
+\begin{document}
+\thispagestyle{fancy}
+\lhead{\sf \Fach{} \\ \tiny{\Name, \Lehrstuhl}}
+\rhead{\sf \Date{}}
+\vspace*{0.2cm}
+\begin{center}
+\LARGE \sf \textbf{Exercise \Uebungsblatt{} -- Grover's algorithm}
+\end{center}
+\vspace*{0.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Insert your solutions here %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Suppose we whish to search through a search space of $N$ elements. Rather than
+to search the elements directly, we concentrate on the {\it index} to those
+elements, which is just a number in the range $0$ to $N-1$. We assume that $N$ is a
+power of $2$, $N=2^n$, and that the search problem has exactly one solution.
+
+The Grover's algorithm is summarized as follows:
+\begin{enumerate}
+\item Prepare the initial state $\ket{0}^{\otimes n}$.
+\item Apply the Hadamard transform to all qubits:
+\begin{equation}
+\ket{\psi} = H^{\otimes n} \ket{0}^{\otimes n}
+\end{equation}
+\item Apply the Grover iteration $\mathcal{G}$ approximately $R\approx\frac{\pi}{4}\sqrt{N}$ times, where
+\begin{equation}
+\mathcal{G} = \left(2\ket{\psi}\bra{\psi} - \mathbbm{1} \right) \mathcal{O},
+\end{equation}
+and $\mathcal{O}$ is a quantum oracle as described in problem 1.
+\item Measure the register $x_0$.
+\end{enumerate}
+
+\Problem{1 -- Quantum oracle}
+
+Suppose we are supplied with a quantum oracle. More precisely, the oracle is a
+unitary operator $\mathcal{O}$, defined by its action on the computational
+basis:
+\begin{equation}
+\ket{x} \ket{q} \overset{\mathcal{O}}{\rightarrow} \ket{x} \ket{q \oplus f(x)},
+\end{equation}
+where $\ket{x}$ is the index register, $\ket{q}$ is the oracle qubit, $\oplus$ denotes addition modulo $2$, and $f(x)=1$ if $x$ is a solution
+to the search problem, and $f(x)=0$ if $x$ is not a solution to the search problem.
+
+\begin{enumerate}[a)]
+\item Calculate the action of the oracle on an element of the search space if
+the oracle qubit was originally in the state $(\ket{0}-\ket{1})/\sqrt{2}$.
+\item Show that the state of the oracle qubit is not changed.
+\item Show that the oracle marks the solution to the search problem by shifting
+the phase of the solution.
+\end{enumerate}
+
+\Problem{2 -- Grover's algorithm}
+
+\begin{enumerate}[a)]
+\item Consider the normalized states
+\begin{equation}
+\ket{\alpha} \equiv \frac{1}{\sqrt{N-1}} \sum_{x,x\ne \beta} \ket{x}, \qquad \ket{\beta},
+\end{equation}
+where $\beta$ is the solution to the search problem, and
+\begin{equation}
+\ket{\psi} = \sqrt{\frac{N-1}{N}} \ket{\alpha} + \frac{1}{\sqrt{N}} \ket{\beta}.
+\end{equation}
+Show that in the
+$\ket{\alpha}$, $\ket{\beta}$ basis, we may write the Grover iteration as
+\begin{equation}
+\mathcal{G}= \left(\begin{array}{cc}
+\cos\theta & -\sin\theta \\
+\sin\theta &  \cos\theta
+\end{array}\right).
+\end{equation}
+\item Calculate $\mathcal{G}^k\ket{\psi}$.
+\item Show that the Grover iteration has to be repeated approximately $R\approx\frac{\pi}{4}\sqrt{N}$ times for $N \gg 1$.
+\item What is the probability that the algorithm succeeds for $N=8$, $N=128$, and
+$N=1024$?
+\item What is the minimum, maximum and average number of comparisons needed by
+a classical linear search? What is the complexity of this algorithm?
+\item What is the complexity to search a sorted list?
+\end{enumerate}
+
+\end{document}

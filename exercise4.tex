@@ -1,0 +1,178 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{fancyhdr}
+\usepackage{fancyheadings}
+\usepackage[american]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[active]{srcltx}
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{listings}
+\usepackage{struktex}
+\usepackage{hyperref}
+
+\usepackage{braket}
+
+\renewcommand{\vector}[2]{{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% EDIT THIS PART %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Fach}{Basics of Quantum Information and Computing}
+\newcommand{\Name}{Michael Hartmann}
+\newcommand{\Lehrstuhl}{Theoretische Physik I, Universität Augsburg}
+\newcommand{\Uebungsblatt}{4} %  <-- UPDATE ME
+\newcommand{\Date}{30.11.2016} %  <-- UPDATE ME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\Tr}{Tr}
+
+\setlength{\parindent}{0em}
+\topmargin -1.0cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+\setlength{\textheight}{9.2in}
+\setlength{\textwidth}{6.0in}
+
+%%%%%%%%%%%%%%%
+%% Problem-COMMAND
+\newcommand{\Problem}[1]{
+  {
+  \vspace*{0.5cm}
+  \textsf{\textbf{Problem #1}}
+  \vspace*{0.2cm}
+  
+  }
+}
+%%%%%%%%%%%%%%
+\hypersetup{
+    pdftitle={\Fach{}: Exercise \Uebungsblatt{}},
+    pdfauthor={\Name},
+    pdfborder={0 0 0}
+}
+
+\lstset{ %
+language=java,
+basicstyle=\footnotesize\tt,
+showtabs=false,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+extendedchars=true,
+showstringspaces=false,
+flexiblecolumns=true,
+}
+
+\title{Exercise \Uebungsblatt{}}
+\author{\Name{}}
+
+\begin{document}
+\thispagestyle{fancy}
+\lhead{\sf \Fach{} \\ \tiny{\Name, \Lehrstuhl}}
+\rhead{\sf \Date{}}
+\vspace*{0.2cm}
+\begin{center}
+\LARGE \sf \textbf{Exercise \Uebungsblatt{} -- Kronecker Product, Walsh-Hadamard Transform, Quantum Teleportation}
+\end{center}
+\vspace*{0.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Insert your solutions here %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Problem{1}
+Let $A \equiv (a_{ij})_{ij}$ be an $m \times n$ matrix and $B$ an $r \times s$
+matrix. The Kronecker product of A and B is defined as the $(m \cdot r) \times (n \cdot s)$
+matrix
+\begin{equation}
+A \otimes B = \left(
+\begin{array}{cccc}
+a_{11} B & a_{12} B & \hdots & a_{1n} B \\
+a_{21} B & a_{22} B & \hdots & a_{2n} B \\
+\vdots   & \vdots   & \ddots & \vdots   \\
+a_{m1} B & a_{m2} B & \hdots & a_{mn} B \\
+\end{array}
+\right).
+\end{equation}
+
+\begin{enumerate}[a)]
+    \item The states
+        \begin{equation}
+        \ket{\phi_1} \equiv \vector{1}{0}, \quad \ket{\phi_2} \equiv \vector{0}{1}
+        \end{equation}
+    form a basis of $\mathbb{C}^2$. Calculate
+    \begin{equation}
+    \ket{\phi_1} \otimes \ket{\phi_1}, \quad \ket{\phi_1} \otimes \ket{\phi_2}, \quad \ket{\phi_2} \otimes \ket{\phi_1}, \quad \ket{\phi_2} \otimes \ket{\phi_2}.
+    \end{equation}
+    Form these vectors also a basis of $\mathbb{C}^4$?
+
+    \item Consider the Pauli matrices
+    \begin{equation}
+    \sigma_x = \left(\begin{array}{cc} 0 & 1 \\ 1 & 0 \end{array}\right), \quad \sigma_z = \left(\begin{array}{cc} 1 & 0 \\ 0 & -1 \end{array}\right).
+    \end{equation}
+    Find $\sigma_x \otimes \sigma_z$ and $\sigma_z \otimes \sigma_x$.
+\end{enumerate}
+
+\Problem{2}
+The single-bit {\it Walsh-Hadamard transform} is the unitary map $W_1$ given by
+\begin{equation}
+W_1\ket{0} = \frac{1}{\sqrt 2} \left(\ket{0}+\ket{1}\right), \qquad W_1\ket{1} = \frac{1}{\sqrt 2} \left(\ket{0}-\ket{1}\right)
+\end{equation}
+The $n$-bit Walsh-Hadamard transform $W_n$ is defined as
+\begin{equation}
+W_n \equiv W_1 \otimes W_1 \otimes \dots \otimes W_1 \qquad \text{($n$-times)}.
+\end{equation}
+\begin{enumerate}[a)]
+\item Find $W_2$ using the canonical basis
+\begin{equation}
+\ket{0} = \vector{1}{0}, \quad \ket{1} = \vector{0}{1}.
+\end{equation}
+\item Find the inverse of $W_2$.
+\item Find $W_2 \left(\ket{00}\right)$.
+\item Find $W_n \left(\ket{00\dots0}\right)$.
+\end{enumerate}
+
+
+\Problem{3}
+
+Suppose Alice has a pure state $\ket{\psi}_S$ of a system $S$ and wants to send
+it to Bob. Using a shared entangled state, she can ``teleport'' the state
+$\ket{\psi}_S$ without having to physically move the state over.
+
+We have three systems $\mathcal{H}_S \otimes \mathcal{H}_A \otimes
+\mathcal{H}_B$. The initial state is given by
+\begin{equation}
+\ket{\psi}_\text{in} = \ket{\psi}_S \otimes \frac{1}{\sqrt 2} \left(\ket{0_A 0_B} + \ket{1_A 1_B}\right),
+\end{equation}
+i.e. Alice and Bob share a fully entangled Bell state, and the total state is
+separable with respect to $S$. We may write $\ket{\psi}_S=\alpha\ket{0}+\beta\ket{1}$.
+
+\begin{enumerate}[a)]
+\item
+In a first step, Alice will measure systems $S$ and $A$ jointly in the Bell basis,
+\begin{equation}
+\left\{\begin{array}{lr}
+\frac{1}{\sqrt 2} \left( \ket{0_S 0_A} + \ket{1_S 1_A} \right) & \frac{1}{\sqrt 2}  \left( \ket{0_S 0_A} - \ket{1_S 1_A} \right)  \\
+\frac{1}{\sqrt 2} \left( \ket{0_S 1_A} + \ket{1_S 0_A} \right) & \frac{1}{\sqrt 2}  \left( \ket{0_S 1_A} - \ket{1_S 0_A} \right) 
+\end{array}\right\}.
+\end{equation}
+What is the reduced state of Bob's system for each of the possible
+outcomes? What are the probabilities for the possible outcomes?
+
+\item Alice then (classically) communicates the result of her measurement to
+Bob.  What operations can Bob apply to his system to recover $\ket\psi_S$?
+
+\item Suppose that Alice does not manage to tell Bob the outcome of her
+measurement. Show that in this case he does not have any information about his
+reduced state and therefore does not know which operation to apply in order to
+obtain $\ket\psi_S$.
+
+\end{enumerate}
+
+\end{document}
